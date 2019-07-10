@@ -43,6 +43,7 @@ public class CategoryService {
         Category noCategory = categoryRepository.findByName("No category");
         if(noCategory == null) {
             noCategory = new Category("No category");
+            categoryRepository.save(noCategory);
         }
         for (Book book : books) {
             book.setCategory(noCategory);
