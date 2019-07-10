@@ -1,0 +1,29 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html>
+<head>
+    <title>List books</title>
+    <link href="../static/css/style.css" th:href="@{/css/style.css}" rel="stylesheet" />
+</head>
+<body>
+    <h2>Books:</h2>
+<div>
+    <table class="zui-table">
+        <tr>
+            <th>Name</th>
+            <th>Publisher</th>
+            <th>Cost</th>
+            <th>Category</th>
+        </tr>
+        <th:block th:each="book : ${books}">
+            <tr>
+                <td th:text="${book.name}"/>
+                <td th:text="${book.publisher}"/>
+                <td th:text="${book.cost}"/>
+                <td th:text="${book.category.name}"/>
+            </tr>
+        </th:block>
+    </table>
+</div>
+</body>
+</html>
