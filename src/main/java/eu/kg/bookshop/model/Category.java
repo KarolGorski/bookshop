@@ -8,15 +8,14 @@ import java.util.List;
 @Table(name = "category")
 public class Category {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
     private long id;
 
     @Column(name = "name")
     private String name;
 
-    @OneToMany(mappedBy = "category", cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST,
-            CascadeType.REFRESH})
+    @OneToMany(mappedBy = "category", cascade = {CascadeType.DETACH})
     List<Book> books;
 
     public Category() {
@@ -24,6 +23,10 @@ public class Category {
 
     public Category(String name) {
         this.name = name;
+    }
+
+    public long getId() {
+        return id;
     }
 
     public String getName() {
@@ -43,5 +46,9 @@ public class Category {
 
     public void removeFromBookList(Book book) {
         books.removeIf(bookFromList -> book.getId() == bookFromList.getId());
+    }
+
+    public List<Book> getBooks() {
+        return books;
     }
 }

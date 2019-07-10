@@ -1,0 +1,60 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html>
+<head>
+    <title>Authors</title>
+    <link href="../static/css/style.css" th:href="@{/css/style.css}" rel="stylesheet" />
+</head>
+<body>
+<nav>
+    <button onclick="window.location.href='book';return false;" href="/book">Books</button>
+    <button onclick="window.location.href='author';return false;" href="/author">Authors</button>
+    <button onclick="window.location.href='category';return false;" href="/category">Categories</button>
+</nav>
+<h2>Authors:</h2>
+<div>
+    <table class="zui-table">
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Books</th>
+        </tr>
+        <th:block th:each="author : ${authors}">
+            <tr>
+                <td th:text="${author.id}"/>
+                <td th:text="${author.name}"/>
+                <td>
+                    <li th:each="book : ${author.books}" th:text="${book.name}"/>
+                </td>
+            </tr>
+        </th:block>
+    </table>
+</div>
+
+<!--/*@thymesVar id="author" type="eu.kg.bookshop.model.Author"*/-->
+<h2>Add new author</h2>
+<form action="#" th:action="@{/author}" th:object="${author}" method="post">
+    <label for="name">Name:
+        <input type="text" placeholder="name" name="name" id="name" required>
+    </label>
+    <input type="submit" value="Add author">
+</form>
+<h2>Update author</h2>
+<form action="#" th:action="@{/author/put}" th:object="${author}" method="post">
+    <label for="updateId">id:
+        <input type="text" placeholder="id" name="id" id="updateId" required>
+    </label>
+    <label for="updateName">Name:
+        <input type="text" placeholder="name" name="name" id="updateName" required>
+    </label>
+    <input type="submit" value="Update author">
+</form>
+<h2>Delete author</h2>
+<form form action="#" th:action="@{/author/delete}" th:object="${author}" method="post">
+    <label for="id">id:
+        <input type="text" placeholder="id" name="id" id="id" required>
+    </label>
+    <input type="submit" value="Delete author">
+</form>
+</body>
+</html>

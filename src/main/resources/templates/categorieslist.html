@@ -1,0 +1,56 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html>
+<head>
+    <title>Categories</title>
+    <link href="../static/css/style.css" th:href="@{/css/style.css}" rel="stylesheet" />
+</head>
+<body>
+<nav>
+    <button onclick="window.location.href='book';return false;" href="/book">Books</button>
+    <button onclick="window.location.href='author';return false;" href="/author">Authors</button>
+    <button onclick="window.location.href='category';return false;" href="/category">Categories</button>
+</nav>
+<h2>Categories:</h2>
+<div>
+    <table class="zui-table">
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+        </tr>
+        <th:block th:each="category : ${categories}">
+            <tr>
+                <td th:text="${category.id}"/>
+                <td th:text="${category.name}"/>
+            </tr>
+        </th:block>
+    </table>
+</div>
+
+<!--/*@thymesVar id="category" type="eu.kg.bookshop.model.Category"*/-->
+<h2>Add new category</h2>
+<form action="#" th:action="@{/category}" th:object="${category}" method="post">
+    <label for="name">Name:
+        <input type="text" placeholder="name" name="name" id="name" required>
+    </label>
+    <input type="submit" value="Add category">
+</form>
+<h2>Update category</h2>
+<form action="#" th:action="@{/category/put}" th:object="${category}" method="post">
+    <label for="updateId">id:
+        <input type="text" placeholder="id" name="id" id="updateId" required>
+    </label>
+    <label for="updateName">Name:
+        <input type="text" placeholder="name" name="name" id="updateName" required>
+    </label>
+    <input type="submit" value="Update category">
+</form>
+<h2>Delete category</h2>
+<form form action="#" th:action="@{/category/delete}" th:object="${category}" method="post">
+    <label for="id">id:
+        <input type="text" placeholder="id" name="id" id="id" required>
+    </label>
+    <input type="submit" value="Delete category">
+</form>
+</body>
+</html>

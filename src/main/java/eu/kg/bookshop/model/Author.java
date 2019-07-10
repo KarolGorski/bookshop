@@ -1,22 +1,22 @@
 package eu.kg.bookshop.model;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
 @Table(name="author")
 public class Author {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
     private long id;
 
-    @Column(name = "first_name")
-    private String first_name;
-
-    @Column(name = "last_name")
-    private String last_name;
+    @Column(name = "name")
+    private String name;
 
     @ManyToMany
     @JoinTable(name = "authors_to_books", joinColumns = @JoinColumn(name = "author_id"),
@@ -26,9 +26,20 @@ public class Author {
     public Author() {
     }
 
-    public Author(String first_name, String last_name) {
-        this.first_name = first_name;
-        this.last_name = last_name;
+    public Author(String name) {
+        this.name = name;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public void addBook(Book book) {
@@ -37,4 +48,9 @@ public class Author {
         }
         books.add(book);
     }
+
+    public List<Book> getBooks() {
+        return new ArrayList<>(books);
+    }
+
 }

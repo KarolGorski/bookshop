@@ -6,24 +6,85 @@
     <link href="../static/css/style.css" th:href="@{/css/style.css}" rel="stylesheet" />
 </head>
 <body>
+    <nav>
+        <button onclick="window.location.href='book';return false;" href="/book"> Books</button>
+        <button onclick="window.location.href='author';return false;" href="/author"> Authors</button>
+        <button onclick="window.location.href='category';return false;" href="/category"> Categories</button>
+    </nav>
     <h2>Books:</h2>
-<div>
-    <table class="zui-table">
-        <tr>
-            <th>Name</th>
-            <th>Publisher</th>
-            <th>Cost</th>
-            <th>Category</th>
-        </tr>
-        <th:block th:each="book : ${books}">
+    <div>
+        <table class="zui-table">
             <tr>
-                <td th:text="${book.name}"/>
-                <td th:text="${book.publisher}"/>
-                <td th:text="${book.cost}"/>
-                <td th:text="${book.category.name}"/>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Publisher</th>
+                <th>Cost</th>
+                <th>Category</th>
+                <th>Authors</th>
             </tr>
-        </th:block>
-    </table>
-</div>
+            <th:block th:each="book : ${books}">
+                <tr>
+                    <td th:text="${book.id}"/>
+                    <td th:text="${book.name}"/>
+                    <td th:text="${book.publisher}"/>
+                    <td th:text="${book.cost}"/>
+                    <td th:text="${book.category.name}"/>
+                    <td>
+                        <li th:each="author : ${book.authors}" th:text="${author.name}"/>
+                    </td>
+                </tr>
+            </th:block>
+        </table>
+    </div>
+
+    <!--/*@thymesVar id="book" type="eu.kg.bookshop.model.Book"*/-->
+    <h2>Add new book</h2>
+    <form action="#" th:action="@{/book}" th:object="${book}" method="post">
+        <label for="name">Name:
+            <input type="text" placeholder="name" name="name" id="name" required>
+        </label>
+        <label for="publisher">Publisher:
+            <input type="text" placeholder="publisher" name="publisher" id="publisher" required>
+        </label>
+        <label for="cost">Cost:
+            <input type="text" placeholder="cost" name="cost" id="cost" required>
+        </label>
+        <label for="authorName">Author name:
+            <input type="text" placeholder="author name" name="authorName" id="authorName" required/>
+        </label>
+        <label for="categoryName">Category name:
+            <input type="text" placeholder="category name" name="categoryName" id="categoryName" required/>
+        </label>
+        <input type="submit" value="Add book">
+    </form>
+    <h2>Update book</h2>
+    <form action="#" th:action="@{/book/put}" th:object="${book}" method="post">
+        <label for="updateId">id:
+            <input type="text" placeholder="id" name="id" id="updateId" required>
+        </label>
+        <label for="updateName">Name:
+            <input type="text" placeholder="name" name="name" id="updateName" required>
+        </label>
+        <label for="publisher">Publisher:
+            <input type="text" placeholder="publisher" name="publisher" id="updatePublisher" required>
+        </label>
+        <label for="updateCost">Cost:
+            <input type="text" placeholder="cost" name="cost" id="updateCost" required>
+        </label>
+        <label for="updateAuthor">Author:
+            <input type="text" placeholder="author" name="authorName" id="updateAuthor" required/>
+        </label>
+        <label for="updateCategoryName">Type:
+            <input type="text" placeholder="category name" name="categoryName" id="updateCategoryName" required/>
+        </label>
+        <input type="submit" value="Update book">
+    </form>
+    <h2>Delete book</h2>
+    <form form action="#" th:action="@{/book/delete}" th:object="${book}" method="post">
+        <label for="id">id:
+            <input type="text" placeholder="id" name="id" id="id" required>
+        </label>
+        <input type="submit" value="Delete book">
+    </form>
 </body>
 </html>

@@ -1,7 +1,11 @@
 package eu.kg.bookshop.model;
 
+import org.thymeleaf.util.ListUtils;
+
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -9,7 +13,7 @@ import java.util.Set;
 public class Book {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
     private long id;
 
@@ -43,10 +47,6 @@ public class Book {
 
     public long getId() {
         return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
     }
 
     public String getName() {
@@ -86,5 +86,9 @@ public class Book {
             authors = new HashSet<>();
         }
         authors.add(author);
+    }
+
+    public List<Author> getAuthors() {
+        return new ArrayList<>(authors);
     }
 }
